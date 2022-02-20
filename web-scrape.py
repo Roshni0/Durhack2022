@@ -256,6 +256,7 @@ class RightmoveData:
 
 right_move_data = RightmoveData("https://www.rightmove.co.uk/property-for-sale/find.html?searchType=SALE&locationIdentifier=REGION%5E460&insId=2&radius=0.0&minPrice=&maxPrice=&minBedrooms=&maxBedrooms=&displayPropertyType=&maxDaysSinceAdded=&_includeSSTC=on&sortByPriceDescending=&primaryDisplayPropertyType=&secondaryDisplayPropertyType=&oldDisplayPropertyType=&oldPrimaryDisplayPropertyType=&newHome=&auction=false")
 df = right_move_data._get_results()
+
 df.to_csv("output.csv")
 with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified also
     print(df)
