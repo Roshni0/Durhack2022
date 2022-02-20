@@ -1,9 +1,14 @@
 from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
-import pandas
 import csv
 from sell import start_model, run_model
 from twilio.rest import Client
+import os
+from decouple import config
+
+API_USERNAME = config('USER')
+API_KEY = config('KEY')
+API_NUMBER = config('PHONE')
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///test.db?check_same_thread=False"
@@ -114,13 +119,11 @@ with open("output.csv", "r") as file:
 
 if __name__ == "__main__":
     start_model()
-    account_sid = "AC394c8552d6cb33f1aba9ad1d59afc9c6"
-    auth_token = "094665b76f68ccd98314e0dc6cc59456"
-    client = Client(account_sid, auth_token)
+    client = Client(API_USERNAME, API_KEY)
     message = client.messages \
                     .create(
                         body="Hey Bob! New property available! Click Here https://www.rightmove.co.uk/properties/120207362#/?channel=RES_BUY",
-                        from_='+19035277790',
+                        from_= API_NUMBER,
                         to='+447776450115'
                     )
     print(message.sid)
